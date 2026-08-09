@@ -92,10 +92,36 @@ models = train_models()
 st.sidebar.title("⚙️ Controls")
 model_names = list(models.keys())
 selected = st.sidebar.selectbox("Choose a model", model_names, index=len(model_names) - 1)
-compare_all = st.sidebar.checkbox("Compare all models", value=True)
 st.sidebar.markdown("---")
-st.sidebar.markdown("**Expected columns**\n\n14 feature columns + a `churned` target "
-                    "(1 = left, 0 = stayed). Upload the provided `test_data.csv` or your own.")
+st.sidebar.subheader("Expected CSV format")
+st.sidebar.caption("Your file needs **14 feature columns** + **1 target column**.")
+
+FEATURE_COLUMNS = [
+    ("tenure_months", "Months as a customer"),
+    ("age", "Customer age (years)"),
+    ("monthly_charges", "Current monthly bill ($)"),
+    ("total_charges", "Lifetime charges ($)"),
+    ("num_support_calls", "Support calls made"),
+    ("avg_gb_download", "Avg monthly data (GB)"),
+    ("household_size", "People in household"),
+    ("num_addon_services", "Add-on services count"),
+    ("late_payments_12m", "Late payments (last 12m)"),
+    ("contract_type", "0=Monthly, 1=1yr, 2=2yr"),
+    ("payment_method", "Encoded payment method"),
+    ("has_online_security", "1=yes, 0=no"),
+    ("has_tech_support", "1=yes, 0=no"),
+    ("has_paperless_billing", "1=yes, 0=no"),
+]
+
+with st.sidebar.expander("Feature columns (14)", expanded=False):
+    st.markdown(
+        "\n".join(f"- **`{name}`** — {desc}" for name, desc in FEATURE_COLUMNS)
+    )
+
+st.sidebar.markdown(
+    "**Target column**\n\n"
+    "- **`churned`** — `1` = customer left, `0` = customer stayed"
+)
 
 st.title("📡 Telecom Customer-Churn Classifier")
 st.caption("Five classifiers trained live on a 14-feature churn dataset. Upload a labelled test CSV to score them.")
@@ -161,18 +187,3 @@ st.subheader("Classification report")
 report = classification_report(y, y_pred, target_names=["Stayed (0)", "Churned (1)"],
                                output_dict=True, zero_division=0)
 st.dataframe(pd.DataFrame(report).T.round(3), use_container_width=True)
-
-if compare_all:
-    st.header("All models on this test set")
-    rows = {}
-    for name, mdl in models.items():
-        yp, ypr = score(mdl)
-        rows[name] = compute_metrics(y, yp, ypr)
-    comp = pd.DataFrame(rows).T.round(4)
-    comp.index.name = "ML Model"
-    st.dataframe(comp.style.highlight_max(axis=0, color="#1b5e20").format("{:.4f}"),
-                 use_container_width=True)
-    winner = comp["MCC"].idxmax()
-    st.success(f"🏆 Best by MCC on this data: **{winner}** (MCC = {comp.loc[winner, 'MCC']:.4f})")
-
-st.caption("Models trained in-session from the bundled dataset · no pre-saved binaries required.")
