@@ -36,7 +36,7 @@ from sklearn.tree import DecisionTreeClassifier
 TARGET = "churned"
 SEED = 20826
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH = os.path.join(HERE, "model", "churn_full.csv")
+DATA_PATH = os.path.join(HERE, "churn_full.csv")
 
 st.set_page_config(page_title="Churn Classifier Lab", page_icon="📡", layout="wide")
 
