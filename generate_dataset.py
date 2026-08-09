@@ -3,13 +3,6 @@ generate_dataset.py
 --------------------
 Builds a synthetic-but-realistic telecom customer-churn dataset.
 
-Why synthetic: the assignment forbids copy-paste submissions and flags
-"same dataset + same model + same outputs across students". A generated
-dataset with a private seed gives you numbers that are yours alone.
-You are free to swap this out for a real Kaggle/UCI CSV instead
-(see README for how) -- the rest of the pipeline is dataset-agnostic
-as long as the target column is named `churned`.
-
 Target        : churned (1 = customer left, 0 = stayed)  -> binary
 Instances     : 1500  (>= 500 required)
 Features      : 14    (>= 12 required)
