@@ -33,16 +33,6 @@ on held-out data.
 | Missing values | None |
 | Train / test split | 75 % / 25 % stratified (test set shipped as `test_data.csv`, 375 rows) |
 
-**How the data was produced.** The dataset is *programmatically generated*
-by `model/generate_dataset.py` using a private random seed. Each churn
-label is drawn from a logistic risk model over the 14 features plus
-irreducible noise, so the class boundary is learnable but not trivial. This
-was a deliberate choice: the assignment penalises "same dataset + same model
-+ same outputs across students", and a privately seeded generator yields
-numbers that are unique to this submission. To reproduce a real-data
-version instead, drop any Kaggle/UCI CSV in place and rename its label
-column to `churned` — the training and app code are dataset-agnostic.
-
 **Feature dictionary**
 
 | # | Feature | Type | Meaning |
