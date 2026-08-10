@@ -64,11 +64,10 @@ column to `churned` — the training and app code are dataset-agnostic.
 
 ## c. GitHub Repository Link
 
-> **https://github.com/<your-username>/telecom-churn-classifier**
+> **https://github.com/sahil9313/Telecom-Customer-Churn-Classifier**
 >
-> _(replace with your actual repository URL before submitting)_
 
-**Live Streamlit app:** `https://<your-app-name>.streamlit.app`
+**Live Streamlit app:** `https://telecom-customer-churn-classifier-9313.streamlit.app/`
 
 ## d. Models Used
 
@@ -93,9 +92,6 @@ consistent.
 | kNN | 0.6880 | 0.7270 | 0.6497 | **0.6765** | 0.6628 | 0.3730 |
 | Naive Bayes | 0.6827 | 0.7607 | 0.6457 | 0.6647 | 0.6551 | 0.3615 |
 | Random Forest (Ensemble) | **0.7040** | 0.7646 | **0.6928** | 0.6235 | 0.6563 | **0.3994** |
-
-_(Bold = best value in that column. Numbers are reproducible via
-`python model/train_models.py` with the shipped seed.)_
 
 ### Observations
 
@@ -130,26 +126,9 @@ project-folder/
     └── random_forest.pkl
 ```
 
-## Run Locally
-
-```bash
-pip install -r requirements.txt
-python model/generate_dataset.py    # (optional) regenerate the dataset
-python model/train_models.py        # (optional) retrain + refresh metrics
-streamlit run app.py
-```
-
-## Deploy on Streamlit Community Cloud
-
-1. Push this folder to a **public** GitHub repository.
-2. Go to https://streamlit.io/cloud and sign in with GitHub.
-3. **New app → select the repo → branch `main` → main file `app.py` → Deploy.**
-4. Once live, open the app, upload `test_data.csv`, and switch models from the sidebar.
-
 ## App Features
 
 - **CSV upload** of test data (falls back to the bundled `test_data.csv`).
 - **Model-selection dropdown** in the sidebar (+ a "compare all" toggle).
 - **Six evaluation metrics** shown as metric cards: Accuracy, AUC, Precision, Recall, F1, MCC.
 - **Confusion matrix**, **ROC curve**, and a full **classification report**.
-- An all-models comparison table with the best value in each column highlighted.
